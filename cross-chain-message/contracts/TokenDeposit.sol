@@ -17,7 +17,7 @@ contract TokenDeposit {
     L1StandardBridge = _l1StandardBridge;
   }
 
-  function desposit(address to, uint256 amount) external {
+  function deposit(address to, uint256 amount) external {
     ERC20(L1Token).transferFrom(msg.sender, address(this), amount);
     ERC20(L1Token).approve(L1StandardBridge, amount);
     IL1StandardBridge(L1StandardBridge).depositERC20To(L1Token, L2Token, to, amount, 200000, new bytes(0));

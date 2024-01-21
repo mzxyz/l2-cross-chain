@@ -8,5 +8,5 @@ interface IL1StandardBridge {
     uint256 _amount,
     uint256 _minGasLimit,
     bytes calldata _extraData
-  ) external virtual;
+  ) external;
 }
