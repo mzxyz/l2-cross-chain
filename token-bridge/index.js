@@ -1,16 +1,16 @@
 const ethers = require("ethers");
 const optimismSDK = require("@eth-optimism/sdk");
+const tokenDepositAbi = require("../cross-chain-message/build/contracts/TokenDeposit.json").abi;
 
 const L1_RPC = "https://rpc.ankr.com/eth_goerli";
 const L2_RPC = "https://goerli.base.org";
 
 const L1_contract_address = "0x37b797ebe14b4490fe64c67390aecfe20d650953";
 const L2_contract_address = "0xe6fEE2D5d2B49Ed96E6e1EeEa86a1916aeDc107f";
+const L1_depist_token_address = "0x505B8fD4331080e5130A21349E5438951D4d2e4a";
 
 const L1RPCProvider = new ethers.providers.JsonRpcProvider(L1_RPC);
 const L2RPCProvider = new ethers.providers.JsonRpcProvider(L2_RPC);
-
-const sk = '';
 
 const L1Wallet = new ethers.Wallet(sk, L1RPCProvider);
 const L2Wallet = new ethers.Wallet(sk, L2RPCProvider);
@@ -76,5 +76,13 @@ async function withdrawToken() {
   console.log('withdraw done');
 }
 
+async function depositTokenWithContract() {
+  const contract = new ethers.Contract(L1_depist_token_address, tokenDepositAbi, L1Wallet);
+  console.log('contract', contract);
+  const tx = await contract.depoist('0x59ce189fd40611162017deb88d826C3485f41e0D', amount);
+  await tx.wait();
+}
+
 // depositToken();
-withdrawToken();
+// withdrawToken();
+depositTokenWithContract();
