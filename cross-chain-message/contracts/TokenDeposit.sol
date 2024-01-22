@@ -2,7 +2,7 @@
 pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import './IL1StandardBridge.sol';
+import "@eth-optimism/contracts/L1/messaging/IL1ERC20Bridge.sol";
 
 contract TokenDeposit {
   address public L1Token;
@@ -17,10 +17,18 @@ contract TokenDeposit {
     L1StandardBridge = _l1StandardBridge;
   }
 
+  // function deposit(address to, uint256 amount, uint32 l2Gas, bytes calldata data) external {
+  //   ERC20(L1Token).transferFrom(msg.sender, address(this), amount);
+  //   ERC20(L1Token).approve(L1StandardBridge, amount);
+  //   IL1ERC20Bridge(L1StandardBridge).depositERC20To(L1Token, L2Token, to, amount, l2Gas, data);
+
+  //   emit DepositRequested(msg.sender, amount);
+  // }
+
   function deposit(address to, uint256 amount) external {
     ERC20(L1Token).transferFrom(msg.sender, address(this), amount);
     ERC20(L1Token).approve(L1StandardBridge, amount);
-    IL1StandardBridge(L1StandardBridge).depositERC20To(L1Token, L2Token, to, amount, 200000, new bytes(0));
+    IL1ERC20Bridge(L1StandardBridge).depositERC20To(L1Token, L2Token, to, amount, 300000, new bytes(0));
 
     emit DepositRequested(msg.sender, amount);
   }
