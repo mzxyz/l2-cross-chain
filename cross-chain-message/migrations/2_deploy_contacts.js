@@ -13,7 +13,7 @@
 // module.exports = function(deployer) {
 //   deployer.deploy(
 //     L1Token,
-//     100000000000,
+//     '100000000000000000000000000000',
 //   );
 // };
 
@@ -22,7 +22,7 @@ module.exports = function(deployer) {
   deployer.deploy(
     L2Token,
     '0x4200000000000000000000000000000000000010',
-    '0xd2b00e427e3fe06be815c20039421308f0487d03',
+    '0xd4FeC1aFF3BED82eaAF1bB317eDC92E0fe1ac867',
   );
 };
 
